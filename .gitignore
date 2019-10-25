@@ -1,0 +1,14 @@
+.DS_Store
+.idea/
+.idea/workspace.xml
+certificates/*
+demo/certs
+ecasclient.log
+eulogin-phpclient-log.log
+eulogin-phpclient-cache-log.log
+eulogin-phpclient-autoload-log.log
+eulogin-phpclient-session-log.log
+**/Properties/config.json
+vendor/
+composer.lock
+psrcas.log

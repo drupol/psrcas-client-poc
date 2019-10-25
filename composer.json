@@ -1,0 +1,20 @@
+{
+  "name": "drupol/psrcas-php-client-poc",
+  "description": "EU Login PHP Client application",
+  "license": "MIT",
+  "homepage": "https://github.com/drupol/psrcas-php-client-poc",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">= 7.1",
+    "drupol/psrcas": "dev-master",
+    "monolog/monolog": "^1.0",
+    "nyholm/psr7": "^1.2.1",
+    "symfony/http-client": "^4.3",
+    "symfony/cache": "^4.3",
+    "symfony/var-dumper": "^4.3",
+    "nyholm/psr7-server": "^0.4.0",
+    "http-interop/response-sender": "^1.0",
+    "ext-json": "*"
+  }
+}
