@@ -9,15 +9,16 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpClient\NativeHttpClient;
 use Symfony\Component\HttpClient\Psr18Client;
+use drupol\psrcas\Configuration\Properties;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
-// Read the properties.
-$properties = json_decode(
+// Create a configuration object.
+$properties = new Properties(json_decode(
     file_get_contents(__DIR__ . '/psrcas-config.json'),
     true
-);
+));
 
 // The PSR-17 HTTP factories factory.
 $psr17Factory = new Psr17Factory();
