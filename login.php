@@ -9,6 +9,6 @@ use function Http\Response\send;
 /** @var \drupol\psrcas\Cas $casClient */
 $casClient = include 'cas.php';
 
-session_destroy();
+$serverRequest = include 'serverRequest.php';
 
-send($casClient->logout());
+send($casClient->login(['service' => (string) $serverRequest->getUri(), 'renew' => true]));

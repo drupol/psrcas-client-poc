@@ -8,7 +8,7 @@ use function Http\Response\send;
 use Nyholm\Psr7\Factory\Psr17Factory;
 
 /** @var \drupol\psrcas\Cas $casClient */
-$casClient = include 'casloader.php';
+$casClient = include 'cas.php';
 
 // We need this to build the body.
 $streamFactory = new Psr17Factory();
