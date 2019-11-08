@@ -1,5 +1,5 @@
 {
-  "base_url":"https:\/\/localhost:7002\/cas",
+  "base_url":"https:\/\/localhost:8443\/cas",
   "protocol":{
     "login":{
       "path":"\/login",
@@ -17,12 +17,12 @@
       "allowed_parameters":[
         "service",
         "ticket",
-        "userDetails"
+        "pgtUrl"
       ],
       "default_parameters":{
         "userDetails":"true",
         "format":"XML",
-        "pgtUrl":"https:\/\/ecasclient\/proxyCallback.php"
+        "pgtUrl":"https:\/\/ecasclient\/includes\/proxyCallback.php"
       }
     },
     "logout":{
@@ -45,7 +45,8 @@
       "path":"\/proxyValidate",
       "allowed_parameters":[
         "ticket",
-        "service"
+        "service",
+        "pgtUrl"
       ],
       "default_parameters":{
         "userDetails":"true",

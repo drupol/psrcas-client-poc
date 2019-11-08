@@ -1,6 +1,6 @@
 {
   "name": "drupol/psrcas-php-client-poc",
-  "description": "EU Login PHP Client application",
+  "description": "PSR CAS Demo PHP application",
   "license": "MIT",
   "homepage": "https://github.com/drupol/psrcas-php-client-poc",
   "minimum-stability": "dev",

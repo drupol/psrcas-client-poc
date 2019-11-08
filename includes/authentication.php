@@ -3,19 +3,20 @@
  * @file
  * authentication.php
  */
-require_once 'vendor/autoload.php';
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use drupol\psrcas\Utils\Uri;
 use Nyholm\Psr7\Response;
 
-// This is when you use the package http-interop/response-sender
 use function Http\Response\send;
 
 /** @var \Psr\Http\Message\ServerRequestInterface $serverRequest */
-$serverRequest = include 'serverRequest.php';
+$serverRequest = include __DIR__ . '/serverRequest.php';
 
 /** @var \drupol\psrcas\Cas $casClient */
-$casClient = include 'cas.php';
+$casClient = include __DIR__ . '/cas.php';
 
 // Check if a user is in the session.
 if (null === $user = $_SESSION['user'] ?? null) {

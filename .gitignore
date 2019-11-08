@@ -11,4 +11,4 @@ eulogin-phpclient-session-log.log
 **/Properties/config.json
 vendor/
 composer.lock
-psrcas.log
+log/psrcas.log
