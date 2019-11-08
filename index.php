@@ -18,11 +18,12 @@ if (null !== $_SESSION['user'] ?? null) {
 <?php include __DIR__ . '/templates/header.php'; ?>
 
 <div class="container-fluid">
-    <h1>Simple page<br/>
-        <small>
-            Hi there <?php print $name; ?> !
-        </small>
-    </h1>
+    <h1>Simple page</h1>
+
+    <p>
+        Hi there <?php print $name; ?> !
+    </p>
+
     <p>
         This page is accessible by anonymous and authenticated users.
     </p>
