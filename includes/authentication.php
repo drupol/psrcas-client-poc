@@ -18,8 +18,12 @@ $serverRequest = include __DIR__ . '/serverRequest.php';
 /** @var \drupol\psrcas\Cas $casClient */
 $casClient = include __DIR__ . '/cas.php';
 
+if (true === isset($_GET['renew']) && $_GET['renew'] === '0') {
+    //unset($_SESSION['user']);
+}
+
 // Check if a user is in the session.
-if (null === $user = $_SESSION['user'] ?? null) {
+if (false === isset($_SESSION['user'])) {
   // Try to do an authentication.
   $user = $casClient->authenticate();
 
@@ -38,8 +42,6 @@ if (null === $user = $_SESSION['user'] ?? null) {
 
     // Emit the response to the client.
     send($response);
-  } else {
-    // Do nothing.
   }
 }
 ?>

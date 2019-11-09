@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $serverRequest = include __DIR__ . '/../includes/serverRequest.php';
 
 $name = '';
@@ -24,11 +26,10 @@ if (true === isset($_SESSION['user'])) {
 
         <div class="my-2 my-lg-0">
             <div class="navbar-nav mr-auto">
-
             <?php if (false === isset($_SESSION['user'])): ?>
-                <a class="nav-item nav-link" href="includes/login.php?service=<?php print $serverRequest->getUri(); ?>">Login</a>
+                <a class="nav-item nav-link bg-success" href="includes/login.php?service=<?php print $serverRequest->getUri(); ?>">Login</a>
             <?php else: ?>
-                <a class="nav-item nav-link" href="includes/logout.php?service=<?php print $serverRequest->getUri(); ?>">Logout<?php print $name; ?></a>
+                <a class="nav-item nav-link bg-danger" href="includes/logout.php?service=<?php print $serverRequest->getUri(); ?>">Logout<?php print $name; ?></a>
             <?php endif; ?>
             </div>
         </div>
