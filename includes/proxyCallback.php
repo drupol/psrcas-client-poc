@@ -12,4 +12,4 @@ use function Http\Response\send;
 /** @var \drupol\psrcas\Cas $casClient */
 $casClient = include __DIR__ . '/cas.php';
 
-send($casClient->requestProxyCallback());
+send($casClient->handleProxyCallback());
