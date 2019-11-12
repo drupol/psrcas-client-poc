@@ -15,6 +15,7 @@
     "serviceValidate":{
       "path":"\/serviceValidate",
       "allowed_parameters":[
+        "renew",
         "service",
         "ticket",
         "pgtUrl"
@@ -44,6 +45,7 @@
     "proxyValidate":{
       "path":"\/proxyValidate",
       "allowed_parameters":[
+        "renew",
         "ticket",
         "service",
         "pgtUrl"
@@ -51,7 +53,7 @@
       "default_parameters":{
         "userDetails":"true",
         "format":"XML",
-        "pgtUrl":"https:\/\/ecasclient\/proxyCallback.php"
+        "pgtUrl":"https:\/\/ecasclient\/includes\/proxyCallback.php"
       }
     }
   }
