@@ -15,13 +15,11 @@
     "serviceValidate":{
       "path":"\/serviceValidate",
       "allowed_parameters":[
-        "renew",
         "service",
         "ticket",
         "pgtUrl"
       ],
       "default_parameters":{
-        "userDetails":"true",
         "format":"XML",
         "pgtUrl":"https:\/\/psrcas-php-demo.herokuapp.com\/includes\/proxyCallback.php"
       }
@@ -45,13 +43,11 @@
     "proxyValidate":{
       "path":"\/proxyValidate",
       "allowed_parameters":[
-        "renew",
         "ticket",
         "service",
         "pgtUrl"
       ],
       "default_parameters":{
-        "userDetails":"true",
         "format":"XML",
         "pgtUrl":"https:\/\/psrcas-php-demo.herokuapp.com\/includes\/proxyCallback.php"
       }
