@@ -1,5 +1,5 @@
 {
-  "base_url":"https:\/\/psrcas-server.herokuapp.com\/cas",
+  "base_url":"https:\/\/localhost:8443\/cas",
   "protocol":{
     "login":{
       "path":"\/login",
@@ -52,7 +52,6 @@
       ],
       "default_parameters":{
         "userDetails":"true",
-        "format":"XML",
         "pgtUrl":"https:\/\/casclient\/includes\/proxyCallback.php"
       }
     }

@@ -1,10 +1,10 @@
 {
-  "base_url":"https:\/\/localhost:8443\/cas",
+  "base_url":"https:\/\/heroku-cas-server.herokuapp.com\/cas",
   "protocol":{
     "login":{
       "path":"\/login",
       "default_parameters":{
-        "service":"https:\/\/casclient\/"
+        "service":"https:\/\/psrcas-php-demo.herokuapp.com\/"
       },
       "allowed_parameters":[
         "service",
@@ -23,7 +23,7 @@
       "default_parameters":{
         "userDetails":"true",
         "format":"XML",
-        "pgtUrl":"https:\/\/casclient\/includes\/proxyCallback.php"
+        "pgtUrl":"https:\/\/psrcas-php-demo.herokuapp.com\/includes\/proxyCallback.php"
       }
     },
     "logout":{
@@ -32,7 +32,7 @@
         "service"
       ],
       "default_parameters":{
-        "service":"https:\/\/casclient"
+        "service":"https:\/\/psrcas-php-demo.herokuapp.com"
       }
     },
     "proxy":{
@@ -52,7 +52,8 @@
       ],
       "default_parameters":{
         "userDetails":"true",
-        "pgtUrl":"https:\/\/casclient\/includes\/proxyCallback.php"
+        "format":"XML",
+        "pgtUrl":"https:\/\/psrcas-php-demo.herokuapp.com\/includes\/proxyCallback.php"
       }
     }
   }
