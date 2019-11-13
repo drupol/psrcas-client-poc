@@ -11,7 +11,7 @@ use function Http\Response\send;
 include __DIR__ . '/includes/authentication.php';
 
 $name = 'stranger';
-if (null !== $_SESSION['user'] ?? null) {
+if (true === isset($_SESSION['user'])) {
     $name = $user['serviceResponse']['authenticationSuccess']['user'] ?? $name;
 }
 ?>
