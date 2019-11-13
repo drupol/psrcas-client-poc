@@ -10,5 +10,4 @@ eulogin-phpclient-autoload-log.log
 eulogin-phpclient-session-log.log
 **/Properties/config.json
 vendor/
-composer.lock
 log/
