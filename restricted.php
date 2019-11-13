@@ -19,7 +19,7 @@ if (null !== $user = $_SESSION['user'] ?? null) {
             $body = json_decode((string) $response->getBody(), true);
             $proxyTicket = $body['serviceResponse']['proxySuccess']['proxyTicket'] ?? null;
             $linkToTargetService = htmlentities(sprintf('%s?ticket=%s', $targetService, $proxyTicket));
-            $curlCommandLine = htmlentities(sprintf('curl -v -L -k "%s"', $linkToTargetService));
+            $curlCommandLine = htmlentities(sprintf('curl -b cookie.txt -c cookie.txt -v -L -k "%s"', $linkToTargetService));
         }
     }
 }
