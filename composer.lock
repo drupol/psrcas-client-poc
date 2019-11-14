@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupol/psrcas.git",
-                "reference": "92e27fe797d3eaddf5be8eb7a83f122b22d0d66c"
+                "reference": "e83211515149ecba2f4debd8ab00b85a3ba80c45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupol/psrcas/zipball/92e27fe797d3eaddf5be8eb7a83f122b22d0d66c",
-                "reference": "92e27fe797d3eaddf5be8eb7a83f122b22d0d66c",
+                "url": "https://api.github.com/repos/drupol/psrcas/zipball/e83211515149ecba2f4debd8ab00b85a3ba80c45",
+                "reference": "e83211515149ecba2f4debd8ab00b85a3ba80c45",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +64,7 @@
                 "psr",
                 "single-sign-on"
             ],
-            "time": "2019-11-14T14:03:06+00:00"
+            "time": "2019-11-14T14:36:18+00:00"
         },
         {
             "name": "http-interop/response-sender",
