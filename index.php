@@ -2,12 +2,6 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use drupol\psrcas\Utils\Uri;
-use Nyholm\Psr7\Response;
-use drupol\psrcas\Cas;
-
-use function Http\Response\send;
-
 include __DIR__ . '/includes/authentication.php';
 
 $name = 'stranger';
@@ -29,7 +23,7 @@ if (true === isset($_SESSION['user'])) {
     </p>
 
     <h2>CAS configuration dump</h2>
-    <?php dump($casClient->getProperties()); ?>
+    <?php dump($casClient->getProperties()->all()); ?>
 
     <h2>PHP Session dump</h2>
     <?php dump($_SESSION); ?>
