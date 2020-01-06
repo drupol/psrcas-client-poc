@@ -13,7 +13,7 @@
     "symfony/http-client": "^4.3",
     "symfony/cache": "^4.3",
     "symfony/var-dumper": "^4.3",
-    "nyholm/psr7-server": "^0.4.0",
+    "nyholm/psr7-server": "^0.4.1",
     "http-interop/response-sender": "^1.0",
     "ext-json": "*"
   }
