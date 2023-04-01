@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/includes/middleware/authenticate.php';
+require_once __DIR__ . '/includes/middleware/proxy.php';
 
-include __DIR__ . '/includes/authentication.php';
+/** @var \EcPhp\CasLib\Contract\Configuration\PropertiesInterface $properties */
+$properties = include __DIR__ . '/includes/services/properties.php';
 
-$name = 'stranger';
-if (true === isset($_SESSION['user'])) {
-    $name = $user['serviceResponse']['authenticationSuccess']['user'] ?? $name;
-}
+$name = $_SESSION['user']['serviceResponse']['authenticationSuccess']['user'] ?? 'anonymous';
 ?>
+
 <?php include __DIR__ . '/templates/header.php'; ?>
 
 <div class="container-fluid">
@@ -23,7 +26,7 @@ if (true === isset($_SESSION['user'])) {
     </p>
 
     <h2>CAS configuration dump</h2>
-    <?php dump($casClient->getProperties()->all()); ?>
+    <?php dump($properties); ?>
 
     <h2>PHP Session dump</h2>
     <?php dump($_SESSION); ?>

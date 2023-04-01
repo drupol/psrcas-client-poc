@@ -1,0 +1,26 @@
+{
+  "base_url":"https:\/\/webgate.ec.europa.eu\/cas",
+  "protocol":{
+    "login":{
+      "path":"\/login"
+    },
+    "serviceValidate":{
+      "path":"\/serviceValidate",
+      "default_parameters":{
+        "format":"JSON"
+      }
+    },
+    "logout":{
+      "path":"\/logout"
+    },
+    "proxy":{
+      "path":"\/proxy",
+      "default_parameters":{
+        "format":"JSON"
+      }
+    },
+    "proxyValidate":{
+      "path":"\/proxyValidate"
+    }
+  }
+}

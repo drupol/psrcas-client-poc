@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
 require_once __DIR__  . '/vendor/autoload.php';
-
-include __DIR__ . '/includes/authentication.php';
+require_once __DIR__ . '/includes/middleware/authenticate.php';
 
 $name = 'anonymous';
+
 if (true === isset($_SESSION['user'])) {
     $name = $_SESSION['user']['serviceResponse']['authenticationSuccess']['user'];
 }

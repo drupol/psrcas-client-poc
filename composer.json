@@ -1,20 +1,20 @@
 {
-  "name": "drupol/psrcas-php-client-poc",
-  "description": "PSR CAS Demo PHP application",
+  "name": "drupol/ecphp-caslib-demo-app",
+  "description": "ecphp/cas-lib demo application",
   "license": "MIT",
-  "homepage": "https://github.com/drupol/psrcas-php-client-poc",
+  "homepage": "https://github.com/ecphp/cas-lib",
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": ">= 7.1",
-    "drupol/psrcas": "dev-master",
+    "php": ">= 8.1",
+    "ecphp/cas-lib": "dev-master",
     "monolog/monolog": "^1.0",
-    "nyholm/psr7": "^1.2.1",
-    "symfony/http-client": "^4.3",
-    "symfony/cache": "^4.3",
-    "symfony/var-dumper": "^4.3",
-    "nyholm/psr7-server": "^0.4.1",
+    "nyholm/psr7": "^1",
+    "symfony/http-client": "^6.1",
+    "symfony/cache": "^6.1",
+    "symfony/var-dumper": "^6.1",
+    "nyholm/psr7-server": "^1",
     "http-interop/response-sender": "^1.0",
-    "ext-json": "*"
+    "webclient/ext-log": "^1.0"
   }
 }

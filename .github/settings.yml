@@ -34,8 +34,7 @@ repository:
     allow_rebase_merge: false
     allow_squash_merge: false
     default_branch: master
-    description: "PSR CAS demo client for a bare PHP application."
-    homepage: https://psrcas.readthedocs.io
+    description: "ecphp/cas-lib demo client for a bare PHP application."
     topics: authentication,cas,psr,single-sign-on
     has_downloads: true
     has_issues: true
