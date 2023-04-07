@@ -1,0 +1,27 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <h1>Index</h1>
+
+    <p>
+        Hi there {{ name }} !
+    </p>
+
+    <p>
+        This page is accessible to anyone.
+    </p>
+
+    <h2>CAS configuration dump</h2>
+    <details>
+    <pre>
+    {{ dump(properties) }}
+    </pre>
+    </details>
+
+    <h2>PHP Session dump</h2>
+    <details open>
+    <pre>
+    {{ dump(session) }}
+    </pre>
+    </details>
+{% endblock %}

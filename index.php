@@ -2,34 +2,56 @@
 
 declare(strict_types=1);
 
+use function Http\Response\send;
+use PSR7Sessions\Storageless\Session\SessionInterface;
+
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/middleware/authenticate.php';
-require_once __DIR__ . '/includes/middleware/proxy.php';
+// require_once __DIR__ . '/includes/middleware/proxy.php';
 
 /** @var \EcPhp\CasLib\Contract\Configuration\PropertiesInterface $properties */
 $properties = include __DIR__ . '/includes/services/properties.php';
 
-$name = $_SESSION['user']['serviceResponse']['authenticationSuccess']['user'] ?? 'anonymous';
-?>
+/** @var \loophp\psr17\Psr17Interface $psr17 */
+$psr17 = include __DIR__ . '/includes/services/psr17.php';
 
-<?php include __DIR__ . '/templates/header.php'; ?>
+/** @var \Twig\Environment $twig */
+$twig = include __DIR__ . '/includes/services/twig.php';
 
-<div class="container-fluid">
-    <h1>Simple page</h1>
+/** @var \PSR7Sessions\Storageless\Service\StoragelessManager $storageless */
+$storageless = include __DIR__ . '/includes/services/storageless.php';
 
-    <p>
-        Hi there <?php print $name; ?> !
-    </p>
+/** @var \Psr\Log\LoggerInterface $logger */
+$logger = include __DIR__ . '/includes/services/logger.php';
 
-    <p>
-        This page is accessible by anonymous and authenticated users.
-    </p>
+/** @var SessionInterface $session */
+$session = include __DIR__ . '/includes/services/session.php';
 
-    <h2>CAS configuration dump</h2>
-    <?php dump($properties); ?>
+$index = $twig->render(
+  'index.twig',
+  [
+    'name' => $session->get('user')['serviceResponse']['authenticationSuccess']['user'] ?? 'anonymous',
+    'session' => (array) $session->jsonserialize(),
+    'properties' => $properties,
+    'service' => $serverRequest->getUri(),
+  ]
+);
 
-    <h2>PHP Session dump</h2>
-    <?php dump($_SESSION); ?>
-</div>
+$response = $psr17
+  ->createResponse()
+  ->withBody(
+    $psr17->createStream($index)
+  );
 
-<?php include __DIR__ . '/templates/footer.php'; ?>
+send(
+  $storageless
+  ->handle(
+    $serverRequest,
+    $response,
+    static function (SessionInterface $session) use ($logger): SessionInterface {
+      $logger->info('Refreshing the session...');
+
+      return $session;
+    }
+  )
+);

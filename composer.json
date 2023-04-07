@@ -12,9 +12,17 @@
     "nyholm/psr7": "^1",
     "symfony/http-client": "^6.1",
     "symfony/cache": "^6.1",
-    "symfony/var-dumper": "^6.1",
+    "symfony/var-dumper": "^6.2",
     "nyholm/psr7-server": "^1",
     "http-interop/response-sender": "^1.0",
-    "webclient/ext-log": "^1.0"
-  }
+    "webclient/ext-log": "^1.0",
+    "psr7-sessions/storageless": "dev-add-service-and-immutable-session",
+    "twig/twig": "^3.5"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/drupol/storageless"
+    }
+  ]
 }

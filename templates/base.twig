@@ -8,4 +8,13 @@
 </head>
 <body>
 
-<?php include 'navbar.php'; ?>
+{{ include('navbar.twig') }}
+
+<div class="container-fluid">
+{% block content %}
+
+{% endblock %}
+</div>
+
+</body>
+</html>

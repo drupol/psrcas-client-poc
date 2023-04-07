@@ -2,14 +2,36 @@
 
 declare(strict_types=1);
 
+use PSR7Sessions\Storageless\Session\SessionInterface;
+use function Http\Response\send;
+
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/middleware/authenticate.php';
 
-$user = $_SESSION['user'] ?? null;
+/** @var \EcPhp\CasLib\Contract\Configuration\PropertiesInterface $properties */
+$properties = include __DIR__ . '/includes/services/properties.php';
 
-if (null === $user) {
-  require_once __DIR__ . '/includes/login.php';
+/** @var \loophp\psr17\Psr17Interface $psr17 */
+$psr17 = include __DIR__ . '/includes/services/psr17.php';
+
+/** @var \Twig\Environment $twig */
+$twig = include __DIR__ . '/includes/services/twig.php';
+
+/** @var \PSR7Sessions\Storageless\Service\StoragelessManager $storageless */
+$storageless = include __DIR__ . '/includes/services/storageless.php';
+
+/** @var \Psr\Log\LoggerInterface $logger */
+$logger = include __DIR__ . '/includes/services/logger.php';
+
+/** @var SessionInterface $session */
+$session = include __DIR__ . '/includes/services/session.php';
+
+if (false === $session->has('user')) {
+  include __DIR__ . '/login.php';
+  exit;
 }
+
+$user = $session->get('user', []);
 
 $name = $user['serviceResponse']['authenticationSuccess']['user'];
 $pgt = $user['serviceResponse']['authenticationSuccess']['proxyGrantingTicket'] ?? null;
@@ -25,19 +47,31 @@ if (isset($_POST['pgt'], $_POST['targetService'])) {
         $curlCommandLine = htmlentities(sprintf('curl -b cookie.txt -c cookie.txt -v -L -k "%s"', $linkToTargetService));
     }
 }
-?>
-<?php include __DIR__ . '/templates/header.php'; ?>
 
-<div class="container-fluid">
-    <h1>Restricted access</h1>
-    <h2>
-        Hi <?php echo $name; ?> !
-    </h2>
+$restricted = $twig->render(
+  'restricted.twig',
+  [
+    'name' => $session->get('user')['serviceResponse']['authenticationSuccess']['user'] ?? 'anonymous',
+    'session' => (array) $session->jsonserialize(),
+    'properties' => $properties,
+    'service' => $serverRequest->getUri(),
+  ]
+);
 
-    <p>
-        This page is only accessible to authenticated users.
-    </p>
-</div>
+$response = $psr17
+  ->createResponse()
+  ->withBody(
+    $psr17->createStream($restricted)
+  );
 
-<?php include __DIR__ . '/templates/footer.php'; ?>
-
+send(
+  $storageless
+  ->handle(
+    $serverRequest,
+    $response,
+    static function (SessionInterface $session) use ($logger): SessionInterface {
+      $logger->info('Refreshing the session...');
+      return $session;
+    }
+  )
+);

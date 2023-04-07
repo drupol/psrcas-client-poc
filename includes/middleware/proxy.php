@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-require_once __DIR__ . '/../services/session.php';
+//require_once __DIR__ . '/../services/session.php';
 
 /** @var \Psr\Http\Message\ServerRequestInterface $serverRequest */
 $serverRequest = include __DIR__ . '/../services/serverRequest.php';
