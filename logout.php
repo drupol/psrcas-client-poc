@@ -17,6 +17,9 @@ $serverRequest = include __DIR__ . '/includes/services/serverRequest.php';
 /** @var \PSR7Sessions\Storageless\Service\StoragelessManager $storageless */
 $storageless = include __DIR__ . '/includes/services/storageless.php';
 
+/** @var \PSR7Sessions\Storageless\Service\SessionStorage $session */
+$session = include __DIR__ . '/includes/services/session.php';
+
 $response = $casClient
   ->logout(
     $serverRequest,
@@ -24,13 +27,10 @@ $response = $casClient
   )
 );
 
+$logger->info('Refreshing the session...');
+
+$session->clear();
+
 send(
-  $storageless->handle(
-    $serverRequest,
-    $response,
-    static function (SessionInterface $session): void {
-      $session->clear();
-    }
-  )
+  $storageless->withSession($response, $session)
 );
-exit;

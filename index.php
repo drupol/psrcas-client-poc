@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use function Http\Response\send;
-use PSR7Sessions\Storageless\Session\SessionInterface;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/middleware/authenticate.php';
@@ -18,13 +17,13 @@ $psr17 = include __DIR__ . '/includes/services/psr17.php';
 /** @var \Twig\Environment $twig */
 $twig = include __DIR__ . '/includes/services/twig.php';
 
-/** @var \PSR7Sessions\Storageless\Service\StoragelessManager $storageless */
-$storageless = include __DIR__ . '/includes/services/storageless.php';
-
 /** @var \Psr\Log\LoggerInterface $logger */
 $logger = include __DIR__ . '/includes/services/logger.php';
 
-/** @var SessionInterface $session */
+/** @var \PSR7Sessions\Storageless\Service\SessionStorage $storageless */
+$storageless = include __DIR__ . '/includes/services/storageless.php';
+
+/** @var \PSR7Sessions\Storageless\Session\SessionInterface $session */
 $session = include __DIR__ . '/includes/services/session.php';
 
 $index = $twig->render(
@@ -43,15 +42,8 @@ $response = $psr17
     $psr17->createStream($index)
   );
 
-send(
-  $storageless
-  ->handle(
-    $serverRequest,
-    $response,
-    static function (SessionInterface $session) use ($logger): SessionInterface {
-      $logger->info('Refreshing the session...');
+$logger->info('Refreshing the session...');
 
-      return $session;
-    }
-  )
+send(
+  $storageless->withSession($response, $session)
 );

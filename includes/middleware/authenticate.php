@@ -8,7 +8,6 @@ use EcPhp\CasLib\Utils\Uri;
 use Nyholm\Psr7\Response;
 
 use function Http\Response\send;
-use PSR7Sessions\Storageless\Session\SessionInterface;
 
 /** @var \Psr\Http\Message\ServerRequestInterface $serverRequest */
 $serverRequest = include __DIR__ . '/../services/serverRequest.php';
@@ -19,8 +18,11 @@ $casClient = include __DIR__ . '/../services/cas.php';
 /** @var \Psr\Log\LoggerInterface $logger */
 $logger = include __DIR__ . '/../services/logger.php';
 
-/** @var \PSR7Sessions\Storageless\Service\StoragelessManager $storageless */
-$storageless = include __DIR__ . '/../services/storageless.php';
+/** @var \PSR7Sessions\Storageless\Service\SessionStorage $storageless */
+$storageless = include __DIR__ . '/includes/services/storageless.php';
+
+/** @var \PSR7Sessions\Storageless\Session\SessionInterface $session */
+$session = include __DIR__ . '/includes/services/session.php';
 
 $logger->info('CAS authentication middleware enabled...');
 
@@ -33,9 +35,9 @@ try {
 $logger->info('CAS authentication successful, redirecting to url without ticket parameter...');
 
 $logger->info('Saving the session with credentials...');
+$session->set('user', $credentials);
 
-$response = $storageless->handle(
-  $serverRequest,
+$response = $storageless->withSession(
   new Response(
     302,
     [
@@ -45,11 +47,7 @@ $response = $storageless->handle(
       )
     ]
   ),
-  static function (SessionInterface $session) use ($credentials): SessionInterface {
-    $session->set('user', $credentials);
-
-    return $session;
-  }
+  $session
 );
 
 send($response);
