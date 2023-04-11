@@ -19,10 +19,10 @@ $casClient = include __DIR__ . '/../services/cas.php';
 $logger = include __DIR__ . '/../services/logger.php';
 
 /** @var \PSR7Sessions\Storageless\Service\SessionStorage $storageless */
-$storageless = include __DIR__ . '/includes/services/storageless.php';
+$storageless = include __DIR__ . '/../services/storageless.php';
 
 /** @var \PSR7Sessions\Storageless\Session\SessionInterface $session */
-$session = include __DIR__ . '/includes/services/session.php';
+$session = include __DIR__ . '/../services/session.php';
 
 $logger->info('CAS authentication middleware enabled...');
 
