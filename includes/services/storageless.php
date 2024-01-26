@@ -2,12 +2,19 @@
 
 declare(strict_types=1);
 
-use PSR7Sessions\Storageless\Service\StoragelessSession;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use PSR7Sessions\Storageless\Http\SessionMiddleware;
+use PSR7Sessions\Storageless\Http\Configuration as StoragelessConfig;
+use Lcobucci\JWT\Configuration as JwtConfig;
+use Lcobucci\JWT\Signer;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-return StoragelessSession::fromSymmetricKeyDefaults(
-  InMemory::plainText('mBC5v1sOKVvbdEitdSBenu59nfNfhwkedkJVNabosTw='),
-  120
+return new SessionMiddleware(
+  new StoragelessConfig(
+      JwtConfig::forSymmetricSigner(
+          new Signer\Hmac\Sha256(),
+          InMemory::base64Encoded('OpcMuKmoxkhzW0Y1iESpjWwL/D3UBdDauJOe742BJ5Q='),
+      )
+  )
 );

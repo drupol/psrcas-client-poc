@@ -5,8 +5,12 @@ declare(strict_types=1);
 require_once __DIR__ . '/vendor/autoload.php';
 
 use EcPhp\CasLib\Utils\Uri;
+use PSR7Sessions\Storageless\Http\SessionMiddleware;
+
 use function Http\Response\send;
-use PSR7Sessions\Storageless\Session\SessionInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /** @var \ecphp\CasLib\Cas $casClient */
 $casClient = include __DIR__ . '/includes/services/cas.php';
@@ -29,8 +33,20 @@ $response = $casClient
 
 $logger->info('Refreshing the session...');
 
-$session->clear();
+$handler = fn (ResponseInterface $response): RequestHandlerInterface => new class($response) implements RequestHandlerInterface {
+  public function __construct(
+    private readonly ResponseInterface $response
+  ) {}
 
-send(
-  $storageless->withSession($response, $session)
-);
+  public function handle(ServerRequestInterface $request): ResponseInterface {
+    /** @var \PSR7Sessions\Storageless\Session\SessionInterface $session */
+    $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+    $session->clear();
+
+    return $this->response;
+  }
+};
+
+$response = $storageless->process($serverRequest, $handler($response));
+
+send($response);

@@ -15,4 +15,4 @@ return (new ServerRequestCreator(
     $psr17Factory,
     $psr17Factory
   )
-)-> fromGlobals();
+)->fromGlobals();

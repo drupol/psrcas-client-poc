@@ -29,8 +29,8 @@ $session = include __DIR__ . '/includes/services/session.php';
 $index = $twig->render(
   'index.twig',
   [
-    'name' => $session->get('user')['serviceResponse']['authenticationSuccess']['user'] ?? 'anonymous',
-    'session' => (array) $session->jsonserialize(),
+    'name' => $session?->get('user')['serviceResponse']['authenticationSuccess']['user'] ?? 'anonymous',
+    'session' => (array) $session?->jsonserialize(),
     'properties' => $properties,
     'service' => $serverRequest->getUri(),
   ]
@@ -44,6 +44,4 @@ $response = $psr17
 
 $logger->info('Refreshing the session...');
 
-send(
-  $storageless->withSession($response, $session)
-);
+send($response);
